@@ -39,15 +39,15 @@ def _targetcheck(filename):
 
 
 def init():
-    with open("../conf.yaml",'r') as f:
+    with open("conf.yaml",'r') as f:
         y = yaml.load(f, Loader=yaml.FullLoader)
 
-    conf.targets = _targetcheck("../targets.txt")
+    conf.targets = _targetcheck("targets.txt")
     conf.flag_regex = y["flag_regex"]
     conf.request = y["request"]
     conf.response = y["response"]
     conf.cookies = []
     conf.url = None
-    print(conf.flag_regex)
+
 
 init()
