@@ -14,7 +14,7 @@ def _sshtask(target, username, password, cmd,port=22):
             return out_result
         elif err_result:
             return err_result
-    except:
+    except Exception as e:
         return None
 
 

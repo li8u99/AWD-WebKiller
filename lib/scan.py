@@ -11,10 +11,10 @@ def _scantask(url):
             print(url)
             return url
     except Exception as e:
-        return e
+        pass
 
 
-def alivescan(ip,suffix=None):
+def alivescan(ip, suffix=None):
     targets = []
     results = []
     match = re.match(IP_REGEX, ip)
@@ -28,7 +28,7 @@ def alivescan(ip,suffix=None):
 
     with ThreadPoolExecutor(10) as executor:
         for result in executor.map(_scantask, targets):
-            results.append(result)
-
-    with open('../targets.txt', 'w') as f:
+            if result != None:
+                results.append(result + "\n")
+    with open('targets.txt', 'w') as f:
         f.writelines(results)
