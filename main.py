@@ -2,7 +2,7 @@ from rich.console import Console
 from core.data import banner
 from lib.scan import alivescan
 from lib.ssh import sshscan
-from lib.getflag import getflag
+from lib.web_flag import getflag, webshell
 from lib.admin import admin_login
 
 
@@ -21,12 +21,11 @@ if __name__ == '__main__':
         ssh_cmd = input("输入命令(快捷键 1.修改密码，2.cat /flag)>")
         sshscan(ssh_username, ssh_password, ssh_cmd, ssh_port)
     elif parse_num == "3": # Web攻击
-        getflag()
-        # function_num = input("1. GET重放 2. Brupsuite Raw包重放 >")
-        # if function_num == "1":
-        #     submit_flag()
-        # elif function_num == "2":
-        #     getflag_raw()
+        function_num = input("1.批量获取webshell  2. 批量获取并提交FLAG  3. 批量修改后台密码 >")
+        if function_num == "1":
+            webshell()
+        elif function_num == "2":
+            getflag()
     elif parse_num == "4": #登录框批量登录
         admin_login()
     #elif parse_num == "5": # 登录框改密码
