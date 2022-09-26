@@ -20,7 +20,7 @@ def _sshtask(target, username, password, cmd,port=22):
 
 def sshscan(username, password, cmd, port):
     try:
-        with open("../targets.txt",'r') as f:
+        with open("targets.txt",'r') as f:
             targets = f.readlines()
     except FileExistsError as e:
         print(e)
