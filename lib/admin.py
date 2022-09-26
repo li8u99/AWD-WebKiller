@@ -13,6 +13,7 @@ def admin_repeat(target,header,data,mathod,resp_body):
         else:
             return None
     elif mathod == "GET":
+
         resp = requests.get(target,headers=header,verify=False,timeout=5)
         if re.search(resp_body, resp.text):
             return header['Cookie']
