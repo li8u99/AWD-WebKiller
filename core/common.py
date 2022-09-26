@@ -3,25 +3,25 @@ import re
 from core.data import FLAG_REGEX,conf
 import yaml
 
-def repeat(target,data,mathod):
+def repeat(target, data, mathod, header):
     if mathod == "POST":
-        resp = requests.post(target,data=data,verify=False,timeout=5)
-        match = re.match(FLAG_REGEX, resp.text)
+        resp = requests.post(target,data=data, verify=False, timeout=5, headers=header)
+        match = re.search(FLAG_REGEX, resp.text)
         return match.group()
     elif mathod == "GET":
-        resp = requests.get(target,verify=False,timeout=5)
-        match = re.match(FLAG_REGEX,resp.text)
+        resp = requests.get(target, verify=False, timeout=5, headers=header)
+        match = re.search(FLAG_REGEX, resp.text)
         return match.group()
 
 # TODO
 def upload_repeat(target,data,mathod):
     if mathod == "POST":
         resp = requests.post(target,data=data,verify=False,timeout=5)
-        match = re.match(FLAG_REGEX, resp.text)
+        match = re.search(FLAG_REGEX, resp.text)
         return match.group()
     elif mathod == "GET":
         resp = requests.get(target,verify=False,timeout=5)
-        match = re.match(FLAG_REGEX,resp.text)
+        match = re.search(FLAG_REGEX,resp.text)
         return match.group()
 
 
