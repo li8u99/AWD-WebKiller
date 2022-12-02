@@ -5,16 +5,15 @@ from core.data import conf
 from concurrent.futures import ThreadPoolExecutor
 
 
-def admin_repeat(target,header,data,mathod,resp_body):
+def admin_repeat(target, header, data, mathod, resp_body):
     if mathod == "POST":
-        resp = requests.post(target,headers=header,data=data,verify=False,timeout=5)
+        resp = requests.post(target, headers=header, data=data, verify=False, timeout=5)
         if re.search(resp_body, resp.text):
             return header['Cookie']
         else:
             return None
     elif mathod == "GET":
-
-        resp = requests.get(target,headers=header,verify=False,timeout=5)
+        resp = requests.get(target, headers=header, verify=False, timeout=5)
         if re.search(resp_body, resp.text):
             return header['Cookie']
         else:
