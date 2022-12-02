@@ -4,6 +4,7 @@ from lib.scan import alivescan
 from lib.ssh import sshscan
 from lib.web_flag import getflag, webshell
 from lib.admin import admin_login
+from lib.pwn_exp import pwn_flag
 
 
 if __name__ == '__main__':
@@ -26,6 +27,11 @@ if __name__ == '__main__':
             webshell()
         elif function_num == "2":
             getflag()
-    elif parse_num == "4": #登录框批量登录
-        admin_login()
-    #elif parse_num == "5": # 登录框改密码
+        elif function_num == "3":
+            admin_login()
+    elif parse_num == "4":  # Pwn攻击
+        function_num = input("1.批量获取flag  2. 批量getshell >")
+        if function_num == "1":
+            pwn_flag()
+        elif function_num == "2":
+            pass

@@ -1,7 +1,1 @@
-x5lyv3ef43e6d01.ctf.soonsec.cn:8089
-8np5k1372b23f49.ctf.soonsec.cn:8089
-ims3qb1d1c68af1.ctf.soonsec.cn:8089
-dgj795b802d5ded.ctf.soonsec.cn:8089
-cxl5jfa7ffc29c8.ctf.soonsec.cn:8089
-chutb5cf40169a8.ctf.soonsec.cn:8089
-dnhpi55714d4522.ctf.soonsec.cn:8089
+10.1.10.79
