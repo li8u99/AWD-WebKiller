@@ -1,6 +1,6 @@
 import requests
 import re
-from core.data import FLAG_REGEX,conf
+from core.data import FLAG_REGEX, conf
 import yaml
 
 def repeat(target, data, mathod, header):
@@ -42,7 +42,7 @@ def init():
     with open("conf.yaml",'r') as f:
         y = yaml.load(f, Loader=yaml.FullLoader)
 
-    conf.targets = _targetcheck("targets.txt")
+    conf.targets = _targetcheck("web_targets.txt")
     conf.flag_regex = y["flag_regex"]
     conf.request = y["request"]
     conf.response = y["response"]
