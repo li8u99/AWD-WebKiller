@@ -1,5 +1,6 @@
 flag_regex: flag{.*}
-webshell:
+web_port: 80
+pwn_port: 30430
 
 request:
   - |

