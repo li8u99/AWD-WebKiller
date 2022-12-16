@@ -5,6 +5,7 @@ from lib.ssh import sshscan
 from lib.web_flag import getflag, webshell
 from lib.admin import admin_login
 from lib.pwn_exp import *
+from core.common import *
 
 
 if __name__ == '__main__':
@@ -33,6 +34,7 @@ if __name__ == '__main__':
     elif parse_num == "4":  # Pwn攻击
         function_num = input("1.批量获取flag  2. 批量getshell>")
         if function_num == "1":
-            run()
+            pwn_init()
+            pwn_run()
         elif function_num == "2":
             pass

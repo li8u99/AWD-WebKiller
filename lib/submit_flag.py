@@ -19,3 +19,4 @@ def submit_flag(flag):  #提交flag输出提交结果
         print("未匹配到FLAG  @！@")
 
 def get_target():
+    return
