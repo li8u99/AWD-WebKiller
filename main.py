@@ -4,10 +4,11 @@ from lib.scan import alivescan
 from lib.ssh import sshscan
 from lib.web_flag import getflag, webshell
 from lib.admin import admin_login
-from lib.pwn_exp import pwn_flag
+from lib.pwn_exp import *
 
 
 if __name__ == '__main__':
+
     console = Console()
     console.print(banner, style="bold green")
     parse_num = input("> ")
@@ -30,8 +31,8 @@ if __name__ == '__main__':
         elif function_num == "3":
             admin_login()
     elif parse_num == "4":  # Pwn攻击
-        function_num = input("1.批量获取flag  2. 批量getshell >")
+        function_num = input("1.批量获取flag  2. 批量getshell>")
         if function_num == "1":
-            pwn_flag()
+            run()
         elif function_num == "2":
             pass

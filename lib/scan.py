@@ -30,5 +30,5 @@ def alivescan(ip, suffix=None):
         for result in executor.map(_scantask, targets):
             if result != None:
                 results.append(result + "\n")
-    with open('targets.txt', 'w') as f:
+    with open('web_targets.txt', 'w') as f:
         f.writelines(results)

