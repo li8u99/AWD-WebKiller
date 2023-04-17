@@ -6,20 +6,33 @@
 
 ## 项目结构
 ├── README.md
+
 ├── conf.yaml
+
 ├── core
-│   ├── __init__.py
+
 │   ├── common.py
+
 │   └── data.py
+
 ├── lib
-│   ├── __init__.py
+
 │   ├── admin.py
+
 │   ├── parseburplog.py
+
 │   ├── pwn_exp.py
+
 │   ├── scan.py
+
 │   ├── ssh.py
+
 │   ├── submit_flag.py
+
 │   └── web_flag.py
+
 ├── main.py
+
 ├── requirements.txt
+
 └── web_targets.txt
