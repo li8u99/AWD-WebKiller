@@ -6,7 +6,7 @@ from lib.web_flag import getflag, webshell
 from lib.admin import admin_login
 from lib.pwn_exp import *
 from core.common import *
-
+import sys
 
 if __name__ == '__main__':
 
@@ -20,9 +20,10 @@ if __name__ == '__main__':
     elif parse_num == "2": # SSH攻击
         ssh_username = input("输入账号> ")
         ssh_password = input("输入密码> ")
+        ssh_new_password = input("输入修改的密码> ")
         ssh_port = input("输入端口> ")
         ssh_cmd = input("输入命令(快捷键 1.修改密码，2.cat /flag)>")
-        sshscan(ssh_username, ssh_password, ssh_cmd, ssh_port)
+        sshscan(ssh_username, ssh_password, ssh_new_password, ssh_cmd, ssh_port)
     elif parse_num == "3": # Web攻击
         function_num = input("1.批量获取webshell  2. 批量获取并提交FLAG  3. 批量修改后台密码 >")
         if function_num == "1":
