@@ -10,6 +10,7 @@ def submit_flag(flag):  #提交flag输出提交结果
         header = {
             #"Content-Type": "application/x-www-form-urlencoded",
             #"token": ""
+            #"Cookie": ""
         }
         flag = flag.rstrip('\n')
         data = "flag={}".format(flag)
