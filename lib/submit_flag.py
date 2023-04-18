@@ -13,11 +13,10 @@ def submit_flag(flag):  #提交flag输出提交结果
             #"Cookie": ""
         }
         flag = flag.rstrip('\n')
-        data = "flag={}".format(flag)
-        r = requests.get(submit_url, headers=header,timeout=1)# data=data)
+        data = "flag={}&token=".format(flag)
+        r = requests.get(submit_url, headers=header, timeout=1)
+        #r = requests.post(submit_url, headers=header, data=data, timeout=1)
         print(r.text)
     else:
         print("未匹配到FLAG  @！@")
 
-def get_target():
-    return
