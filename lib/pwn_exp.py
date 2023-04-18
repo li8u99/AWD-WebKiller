@@ -5,11 +5,11 @@ from core.data import *
 
 def pwn_run():
     flag = null
-    for i in range(0, len(conf.targets)):
-        try:
-            flag = pwn_exp(conf.targets[i], conf.ports[i])
-        except Exception as f:
-            print("exp出错！@".format(conf.targets[i]))
+    with open('web_targets.txt', 'r') as f:
+        targets = f.readlines()
+        for target in targets:
+            target = target.strip()
+            flag = pwn_exp(target, port=123)
         if flag:
             submit_flag(flag)
 

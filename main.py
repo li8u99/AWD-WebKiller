@@ -3,10 +3,12 @@ from core.data import banner
 from lib.scan import alivescan
 from lib.ssh import sshscan
 from lib.web_flag import getflag, webshell
+from lib.submit_flag import submit_flag
 from lib.admin import admin_login
 from lib.pwn_exp import *
 from core.common import *
 import sys
+
 
 if __name__ == '__main__':
 

@@ -1,6 +1,6 @@
 import paramiko
 from concurrent.futures import ThreadPoolExecutor
-from submit_flag import submit_flag
+from lib.submit_flag import submit_flag
 
 def _sshtask(target, username, password: str, new_password:str,cmd,port=22):
     ssh = paramiko.SSHClient()
@@ -73,13 +73,13 @@ def _sshtask(target, username, password: str, new_password:str,cmd,port=22):
 
 def sshscan(username, password, new_password, cmd, port):  # run threadPool
     try:
-        with open("web_targets.txt",'r') as f:
+        with open("web_targets.txt", 'r') as f:
             targets = f.readlines()
     except FileExistsError as e:
         print(e)
 
     with ThreadPoolExecutor(10) as executor:
-        futures = [executor.submit(_sshtask, target, username, password,new_password, port) for target in targets]
+        futures = [executor.submit(_sshtask, target, username, password, new_password, port) for target in targets]
 
         if cmd == "2":
             # 处理已完成的任务的future对象

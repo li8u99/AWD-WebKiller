@@ -2,6 +2,8 @@ flag_regex: flag{.*}
 web_port: 80
 pwn_port: 30430
 
+
+
 request:
   - |
     POST /login.php HTTP/1.1
