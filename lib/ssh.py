@@ -2,6 +2,8 @@ import paramiko
 from concurrent.futures import ThreadPoolExecutor
 from lib.submit_flag import submit_flag
 
+
+#可能有问题，后期待改善
 def _sshtask(target, username, password: str, new_password:str,cmd,port=22):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
