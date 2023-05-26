@@ -1,6 +1,6 @@
-paramiko==2.11.0
-pwn==1.0
-pwntools==2.2.1
-PyYAML==6.0
-requests==2.28.1
-rich==13.3.4
+paramiko
+pwn
+pwntools
+PyYAML
+requests
+rich
